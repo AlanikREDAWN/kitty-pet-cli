@@ -2,8 +2,8 @@
 name = "kitty-pet-cli"
 version = "0.1.0"
 edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "A program that allows the user to take care of their own pet cat over the command line!"
 
 [dependencies]
-artem = "3.0.0"
-image = "0.25.5"
 rand = "0.8"
