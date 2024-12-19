@@ -1,8 +1,10 @@
 // use image;
 // use artem;
 use std::io::{self};
-use std::time::{Instant};
+use std::time::Instant;
 use rand::Rng;
+// use color_print::cprintln;
+// use ansi_term::Style;
 
 fn main() {
     let mut happiness = 0;
@@ -48,6 +50,8 @@ fn main() {
     println!("Meet your new kitty: {}", name);
 
     loop {
+
+        let style = Style::new().blink();
         
         let start = Instant::now();
         // println!("Hello, world!");
@@ -62,6 +66,7 @@ fn main() {
         println!(r"  (           )");
         println!(r" ( (  )   (  ) )");
         println!(r"(__(__)___(__)__)");
+
         while start.elapsed().as_secs() < 5 {
             
         }
@@ -167,10 +172,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
             Ok(_) => (),
             Err(err) => println!("Could not parse input: {}", err)
         }
-    
-        // io::stdin()
-        //     .read_line(&mut action)
-        //     .expect("Failed to read line");
 
         if action.trim().to_lowercase() == "a" {
             println!("\n");
