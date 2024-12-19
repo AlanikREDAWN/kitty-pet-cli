@@ -1,6 +1,6 @@
 [package]
 name = "kitty-pet-cli"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "A program that allows the user to take care of their own pet cat over the command line!"
