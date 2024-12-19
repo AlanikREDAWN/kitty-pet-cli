@@ -7,6 +7,32 @@ use rand::Rng;
 fn main() {
     let mut happiness = 0;
 
+    loop {
+        let mut start = String::new();
+        println!("Welcome! This program will give you your own virtual kitty over the command line! Would you like to get started?");
+        println!("a: yeah!");
+        println!("b: help me out");
+        println!("c: quit");
+
+        io::Write::flush(&mut io::stdout()).expect("flush failed!");
+
+        match io::stdin().read_line(&mut start) {
+            Ok(_) => (),
+            Err(err) => println!("Could not parse input: {}", err)
+        }
+
+        if start.trim().to_lowercase() == "a" {
+            break;
+        } else if start.trim().to_lowercase() == "b" {
+            println!("This program will give you your own virtual kitty to take care of. You will be given options to take care of your kitty. You can give your kitty water, food, play with it, or snuggle with it. You can also choose to ignore your kitty (please don't!). Your kitty will have a happiness level that will change based on your actions. If your kitty's happiness level reaches below 0, your kitty will run away. Have fun!");
+            println!("\n");
+        } else if start.trim().to_lowercase() == "c" {
+            std::process::exit(0);
+        } else {
+            println!("Invalid action");
+        }
+    }
+
     let mut name = String::new();
     println!("Name your kitty: ");
     io::Write::flush(&mut io::stdout()).expect("flush failed!");
@@ -56,6 +82,12 @@ fn main() {
         println!("\n");
         println!("Happiness: {}", happiness);
         println!("\n");
+        
+
+        if happiness < 0 {
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+        }
     }
 
 }
