@@ -50,8 +50,6 @@ fn main() {
     println!("Meet your new kitty: {}", name);
 
     loop {
-
-        let style = Style::new().blink();
         
         let start = Instant::now();
         // println!("Hello, world!");
