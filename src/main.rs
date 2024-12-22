@@ -1,10 +1,6 @@
-// use image;
-// use artem;
 use std::io::{self};
 use std::time::Instant;
 use rand::Rng;
-// use color_print::cprintln;
-// use ansi_term::Style;
 
 fn main() {
     let mut happiness = 0;
@@ -16,6 +12,10 @@ fn main() {
     let mut gonetovet = false;
 
     let mut gonetobeach = false;
+
+    let mut goneonwalk = false;
+
+    let mut gonetopark = false;
 
     loop {
         let mut start = String::new();
@@ -51,19 +51,12 @@ fn main() {
         Ok(_) => (),
         Err(err) => println!("Could not parse input: {}", err)
     }
-    // io::stdin()
-    //     .read_line(&mut name)
-    //     .expect("Failed to read line");
 
     println!("Meet your new kitty: {}", name);
 
     loop {
         
         let start = Instant::now();
-        // println!("Hello, world!");
-        // let image = image::open("IMG_4717.jpeg").expect("Failed to open image");
-        // let ascii_art = artem::convert(image, &artem::config::ConfigBuilder::new().build());
-        // print!("{}", ascii_art);
 
         println!(r"    /\_____/\");
         println!(r"   /  o   o  \");
@@ -76,7 +69,6 @@ fn main() {
         while start.elapsed().as_secs() < 5 {
             
         }
-
 
         let to_run = rand::thread_rng().gen_range(1..=4);
 
@@ -111,9 +103,19 @@ fn main() {
             gonetovet = true;
         }
 
-        if age == 4 && !gonetobeach {
+        if age == 3 && !gonetobeach {
             beach(&name);
             gonetobeach = true;
+        }
+
+        if age == 4 && !goneonwalk {
+            walk(&name);
+            goneonwalk = true;
+        }
+
+        if age == 5 && !gonetopark {
+            park(&name);
+            gonetopark = true;
         }
 
         count += 1;
@@ -134,12 +136,6 @@ fn thursty(happiness: &mut i32, name: &String) -> i32 {
         d: snuggle with {}
         e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
 
-        // println!("{name} is thursty! What do you do? ");
-        // println!("a: give {name} water");
-        // println!("b: give {name} food");
-        // println!("c: play with {name}");
-        // println!("d: snuggle with {name}");
-        // println!("e: ignore {name}");
         println!("{}", thursty);
         io::Write::flush(&mut io::stdout()).expect("flush failed!");
 
@@ -147,19 +143,11 @@ fn thursty(happiness: &mut i32, name: &String) -> i32 {
             Ok(_) => (),
             Err(err) => println!("Could not parse input: {}", err)
         }
-    
-        // io::stdin()
-        //     .read_line(&mut action)
-        //     .expect("Failed to read line");
 
         if action.trim().to_lowercase() == "a" {
             let water = format!("
 {} drinks water.
 {}'s happiness went up by 3", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} drinks water");
-            // println!("{name} happiness went up by 3");
 
             println!("{}", water);
             *happiness += 3;
@@ -169,10 +157,6 @@ fn thursty(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want food.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want food");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", food);
             *happiness -= 2;
             break;
@@ -180,10 +164,6 @@ fn thursty(happiness: &mut i32, name: &String) -> i32 {
             let play = format!("
 {} doesn't want to play.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} doesn't want to play");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", play);
             *happiness -= 2;
@@ -193,10 +173,6 @@ fn thursty(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want to snuggle.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want to snuggle");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", snuggle);
             *happiness -= 2;
             break;
@@ -204,10 +180,6 @@ fn thursty(happiness: &mut i32, name: &String) -> i32 {
             let sad = format!("
 {} is sad.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} is sad");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", sad);
             *happiness -= 2;
@@ -233,13 +205,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
         d: snuggle with {}
         e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
 
-        // println!("{name} is hungry! What do you do? ");
-        // println!("a: give {name} water");
-        // println!("b: give {name} food");
-        // println!("c: play with {name}");
-        // println!("d: snuggle with {name}");
-        // println!("e: ignore {name}");
-
         println!("{}", hungry);
 
         io::Write::flush(&mut io::stdout()).expect("flush failed!");
@@ -254,10 +219,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want water.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want water");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", water);
             *happiness -= 2;
 
@@ -267,10 +228,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
 {} eats.
 {}'s happiness went up by 3", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} eats");
-            // println!("{name} happiness went up by 3");
-
             println!("{}", food);
             *happiness += 3;
             break;
@@ -279,10 +236,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want to play.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want to play");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", play);
             *happiness -= 2;
             break;
@@ -290,10 +243,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
             let snuggle = format!("
 {} doesn't want to snuggle.
 {}'s happiness went down by 2", name.trim(), name.trim());
-        
-            // println!("\n");
-            // println!("{name} doesn't want to snuggle");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", snuggle);
             *happiness -= 2;
@@ -302,10 +251,6 @@ fn hungry(happiness: &mut i32, name: &String) -> i32 {
             let sad = format!("
 {} is sad.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} is sad");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", sad);
             *happiness -= 2;
@@ -331,13 +276,6 @@ fn playful(happiness: &mut i32, name: &String) -> i32 {
         d: snuggle with {}
         e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
 
-        // println!("{name} wants to play! What do you do? ");
-        // println!("a: give {name} water");
-        // println!("b: give {name} food");
-        // println!("c: play with {name}");
-        // println!("d: snuggle with {name}");
-        // println!("e: ignore {name}");
-
         println!("{}", playful);
         io::Write::flush(&mut io::stdout()).expect("flush failed!");
 
@@ -345,19 +283,11 @@ fn playful(happiness: &mut i32, name: &String) -> i32 {
             Ok(_) => (),
             Err(err) => println!("Could not parse input: {}", err)
         }
-    
-        // io::stdin()
-        //     .read_line(&mut action)
-        //     .expect("Failed to read line");
 
         if action.trim().to_lowercase() == "a" {
             let water = format!("
 {} doesn't want water.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} doesn't want water");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", water);
             *happiness -= 2;
@@ -367,10 +297,6 @@ fn playful(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want food.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want food");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", food);
             *happiness -= 2;
             break;
@@ -378,10 +304,6 @@ fn playful(happiness: &mut i32, name: &String) -> i32 {
             let play = format!("
 {} plays.
 {}'s happiness went up by 3", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} plays");
-            // println!("{name} happiness went up by 3");
 
             println!("{}", play);
             *happiness += 3;
@@ -391,10 +313,6 @@ fn playful(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want to snuggle.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want to snuggle");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", snuggle);
             *happiness -= 2;
             break;
@@ -402,10 +320,6 @@ fn playful(happiness: &mut i32, name: &String) -> i32 {
             let sad = format!("
 {} is sad.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} is sad");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", sad);
             *happiness -= 2;
@@ -431,13 +345,6 @@ fn snuggles(happiness: &mut i32, name: &String) -> i32 {
         d: snuggle with {}
         e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
 
-        // println!("{name} wants to snuggle! What do you do? ");
-        // println!("a: give {name} water");
-        // println!("b: give {name} food");
-        // println!("c: play with {name}");
-        // println!("d: snuggle with {name}");
-        // println!("e: ignore {name}");
-
         println!("{}", snuggles);
         io::Write::flush(&mut io::stdout()).expect("flush failed!");
 
@@ -445,19 +352,11 @@ fn snuggles(happiness: &mut i32, name: &String) -> i32 {
             Ok(_) => (),
             Err(err) => println!("Could not parse input: {}", err)
         }
-    
-        // io::stdin()
-        //     .read_line(&mut action)
-        //     .expect("Failed to read line");
 
         if action.trim().to_lowercase() == "a" {
             let water = format!("
 {} doesn't want water.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} doesn't want water");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", water);
             *happiness -= 2;
@@ -467,10 +366,6 @@ fn snuggles(happiness: &mut i32, name: &String) -> i32 {
 {} doesn't want food.
 {}'s happiness went down by 2", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} doesn't want food");
-            // println!("{name}'s happiness went down by 2");
-
             println!("{}", food);
             *happiness -= 2;
             break;
@@ -478,10 +373,6 @@ fn snuggles(happiness: &mut i32, name: &String) -> i32 {
             let play = format!("
 {} doesn't want to play.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} doesn't want to play");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", play);
             *happiness -= 2;
@@ -491,10 +382,6 @@ fn snuggles(happiness: &mut i32, name: &String) -> i32 {
 {} snuggles.
 {}'s happiness went up by 3", name.trim(), name.trim());
 
-            // println!("\n");
-            // println!("{name} snuggles");
-            // println!("{name} happiness went up by 3");
-
             println!("{}", snuggle);
             *happiness += 3;
             break;
@@ -502,10 +389,6 @@ fn snuggles(happiness: &mut i32, name: &String) -> i32 {
             let sad = format!("
 {} is sad.
 {}'s happiness went down by 2", name.trim(), name.trim());
-
-            // println!("\n");
-            // println!("{name} is sad");
-            // println!("{name}'s happiness went down by 2");
 
             println!("{}", sad);
             *happiness -= 2;
@@ -531,12 +414,6 @@ fn vet(name: &String) {
         d: take {} to the beach
         e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
 
-        // println!("{name} is thursty! What do you do? ");
-        // println!("a: give {name} water");
-        // println!("b: give {name} food");
-        // println!("c: play with {name}");
-        // println!("d: snuggle with {name}");
-        // println!("e: ignore {name}");
         println!("{}", vet);
         io::Write::flush(&mut io::stdout()).expect("flush failed!");
 
@@ -605,12 +482,6 @@ fn beach(name: &String) {
         d: take {} to the beach
         e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
 
-        // println!("{name} is thursty! What do you do? ");
-        // println!("a: give {name} water");
-        // println!("b: give {name} food");
-        // println!("c: play with {name}");
-        // println!("d: snuggle with {name}");
-        // println!("e: ignore {name}");
         println!("{}", beach);
         io::Write::flush(&mut io::stdout()).expect("flush failed!");
 
@@ -620,7 +491,7 @@ fn beach(name: &String) {
         }
 
         if action.trim().to_lowercase() == "a" {
-            let ignore = format!("You ignored your {}'s health.", name.trim());
+            let ignore = format!("You ignored your {}'s need.", name.trim());
 
             println!("{}", ignore);
             
@@ -628,7 +499,7 @@ fn beach(name: &String) {
             std::process::exit(0);
 
         } else if action.trim().to_lowercase() == "b" {
-            let ignore = format!("You ignored your {}'s health.", name.trim());
+            let ignore = format!("You ignored your {}'s need.", name.trim());
 
             println!("{}", ignore);
             
@@ -636,7 +507,7 @@ fn beach(name: &String) {
             std::process::exit(0);
 
         } else if action.trim().to_lowercase() == "c" {
-            let ignore = format!("You ignored your {}'s health.", name.trim());
+            let ignore = format!("You ignored your {}'s need.", name.trim());
 
             println!("{}", ignore);
             
@@ -653,7 +524,143 @@ fn beach(name: &String) {
             break;
 
         } else if action.trim().to_lowercase() == "e" {
-            let ignore = format!("You ignored your {}'s health.", name.trim());
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else {
+            println!("\n");
+            println!("Invalid action");
+        }
+    }
+}
+
+fn walk(name: &String) {
+    loop {
+        let mut action = String::new();
+
+        let walk = format!(r#"
+{} needs to go on a walk! What do you do?
+        
+        a: take {} to the vet
+        b: take {} to the park
+        c: take {} on a walk
+        d: take {} to the beach
+        e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
+
+        println!("{}", walk);
+        io::Write::flush(&mut io::stdout()).expect("flush failed!");
+
+        match io::stdin().read_line(&mut action) {
+            Ok(_) => (),
+            Err(err) => println!("Could not parse input: {}", err)
+        }
+
+        if action.trim().to_lowercase() == "a" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else if action.trim().to_lowercase() == "b" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else if action.trim().to_lowercase() == "c" {
+            let onwalk = format!("
+{} goes on a walk.
+{} is perfectly happy.", name.trim(), name.trim());
+
+            println!("{}", onwalk);
+
+            break;
+        } else if action.trim().to_lowercase() == "d" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else if action.trim().to_lowercase() == "e" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else {
+            println!("\n");
+            println!("Invalid action");
+        }
+    }
+}
+
+fn park(name: &String) {
+    loop {
+        let mut action = String::new();
+
+        let park = format!(r#"
+{} needs to go to the park! What do you do?
+        
+        a: take {} to the vet
+        b: take {} to the park
+        c: take {} on a walk
+        d: take {} to the beach
+        e: ignore {}"#, name.trim(), name.trim(), name.trim(), name.trim(), name.trim(), name.trim());
+
+        println!("{}", park);
+        io::Write::flush(&mut io::stdout()).expect("flush failed!");
+
+        match io::stdin().read_line(&mut action) {
+            Ok(_) => (),
+            Err(err) => println!("Could not parse input: {}", err)
+        }
+
+        if action.trim().to_lowercase() == "a" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else if action.trim().to_lowercase() == "b" {
+            let topark = format!("
+{} goes to the park.
+{} is perfectly happy.", name.trim(), name.trim());
+
+            println!("{}", topark);
+
+            break;
+
+        } else if action.trim().to_lowercase() == "c" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+        } else if action.trim().to_lowercase() == "d" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
+
+            println!("{}", ignore);
+            
+            println!("Your kitty ran away! Game over!");
+            std::process::exit(0);
+
+        } else if action.trim().to_lowercase() == "e" {
+            let ignore = format!("You ignored your {}'s need.", name.trim());
 
             println!("{}", ignore);
             
